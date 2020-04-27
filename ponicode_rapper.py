@@ -47,7 +47,7 @@ class Rapper:
                 sentences.append(line)
         return sentences
     
-    def build_rhyme_list(self, sentences):
+    def build_rhyme_list(self, sentences, show_errors=False):
         """
             - Input: Generated sentences by markov model
             - Output: List of dict with rhyme and lyrics data
@@ -72,7 +72,8 @@ class Rapper:
                                    }
                 rhymes_list.append(rhymes_dict)
             except Exception as e:
-                print(e)
+                if show_errors:
+                    print(e)
         return rhymes_list
     
     def build_equivalence_classes(self, rhymes_list):
