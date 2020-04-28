@@ -200,7 +200,15 @@ class Rapper:
     def replace_forbidden_words(self, generated_text):
         BAD_WORDS = [
 
-            ['hitler','sniffler']
+            ['hitler','sniffler'],
+            ['white', 'knight'],
+            ['fuck', 'duck'],
+            ['did her', 'bid her'],
+            ['bitch', 'quiche'],
+            ['nigg', 'pig'],
+            ['ho', 'toe'],
+            ['hore', 'chore'],
+            ['ass', 'bass']
         ]
         for bad_word in BAD_WORDS:
             forbidden_word = bad_word[0]
