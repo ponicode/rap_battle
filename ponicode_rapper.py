@@ -206,8 +206,8 @@ class Rapper:
             ['did her', 'bid her'],
             ['bitch', 'quiche'],
             ['nigg', 'pig'],
-            ['ho', 'toe'],
-            ['hore', 'chore'],
+            [' ho ', 'toe '],
+            [' hore ', ' chore '],
             ['ass', 'bass']
         ]
         for bad_word in BAD_WORDS:
