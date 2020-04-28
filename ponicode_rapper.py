@@ -208,11 +208,13 @@ class Rapper:
             ['nigg', 'pig'],
             [' ho ', 'toe '],
             [' hore ', ' chore '],
-            ['ass', 'bass']
+            ['ass', 'bass'],
+            ['shit', 'split']
         ]
         for bad_word in BAD_WORDS:
             forbidden_word = bad_word[0]
-            generated_text = generated_text.replace(forbidden_word.capitalize(), '')
-            generated_text = generated_text.replace(forbidden_word, '')
-            generated_text = generated_text.replace(forbidden_word.upper(), '')
+            new_word = bad_word[1]
+            generated_text = generated_text.replace(forbidden_word.capitalize(), new_word)
+            generated_text = generated_text.replace(forbidden_word, new_word)
+            generated_text = generated_text.replace(forbidden_word.upper(), new_word)
         return generated_text
