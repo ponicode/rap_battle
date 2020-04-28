@@ -202,7 +202,7 @@ class Rapper:
 
             ['hitler','sniffler'],
             ['white', 'knight'],
-            ['fuck', 'duck'],
+            ['fuck', 'truck'],
             ['did her', 'bid her'],
             ['bitch', 'quiche'],
             ['nigg', 'pig'],
