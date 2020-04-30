@@ -6,6 +6,7 @@ import tqdm
 import os
 from nltk.tokenize import word_tokenize
 import pickle
+from multiprocessing import Pool
 
 
 class Rapper:
@@ -13,6 +14,7 @@ class Rapper:
 
     def __init__(self):
         self.data_dir = 'data'
+        self.pools = 5
         
     def remove_punctuation(self, word):
         for punctuation in ['"','?','!', ',','.']:
@@ -47,6 +49,21 @@ class Rapper:
                 sentences.append(line)
         return sentences
     
+    def build_rhyme_dict(self, sentence):
+        try:
+            rhymes_dict = {}
+            last_word = sentence.rsplit()[-1]
+            last_word = self.remove_punctuation(last_word)
+            rhymes_dict = {'line': sentence,
+                            'last_word' : last_word,
+                            'rhymes': [last_word] + rhyme_finder(last_word, self.tokenized_text)
+                               }
+            return rhymes_dict
+        except Exception as e:
+            pass
+            return None
+        
+    
     def build_rhyme_list(self, sentences, show_errors=False):
         """
             - Input: Generated sentences by markov model
@@ -61,19 +78,12 @@ class Rapper:
                     ..]
         """
         rhymes_list = []
-        for line in tqdm.tqdm(sentences):
-            try:
-                rhymes_dict = {}
-                last_word = line.rsplit()[-1]
-                last_word = self.remove_punctuation(last_word)
-                rhymes_dict = {'line': line,
-                                    'last_word' : last_word,
-                                    'rhymes': [last_word] + rhyme_finder(last_word, self.tokenized_text)
-                                   }
-                rhymes_list.append(rhymes_dict)
-            except Exception as e:
-                if show_errors:
-                    print(e)
+        poolmasters = Pool(self.pools)
+        results = poolmasters.imap(self.build_rhyme_dict, sentences)
+        for result in tqdm.tqdm(results):
+            if result:
+                rhymes_list.append(result)
+        poolmasters.terminate()
         return rhymes_list
     
     def build_equivalence_classes(self, rhymes_list):
